@@ -1,4 +1,4 @@
-(** * Infinite Data Types *)
+(* * Infinite Data Types *)
 
 From SyntheticComputability Require Import Shared.prelim Synthetic.ListEnumerabilityFacts Synthetic.EnumerabilityFacts Shared.ListAutomation.
 
