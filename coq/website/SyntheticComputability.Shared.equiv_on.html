@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<link href="coqdocjs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="config.js"></script>
+<script type="text/javascript" src="coqdocjs.js"></script>
+</head>
+
+<body onload="document.getElementById('content').focus()">
+  <div id="header">
+    <span class="left">
+      <span class="modulename"> <script> document.write(document.title) </script> </span>
+    </span>
+
+    <span class="button" id="toggle-proofs"></span>
+
+    <span class="right">
+      <a href="../">Project Page</a>
+      <a href="./indexpage.html"> Index </a>
+      <a href="./toc.html"> Table of Contents </a>
+    </span>
+</div>
+    <div id="content" tabindex="-1" onblur="document.getElementById('content').focus()">
+    <div id="main">
+<div class="code">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.ssr.ssreflect.html#"><span class="id" title="library">ssreflect</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Setoids.Setoid.html#"><span class="id" title="library">Setoid</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Class</span> <a name="equiv_on"><span class="id" title="record">equiv_on</span></a> (<span class="id" title="var">T</span> : <span class="id" title="keyword">Type</span>) :=<br/>
+&nbsp;&nbsp;{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a name="equiv_rel"><span class="id" title="projection">equiv_rel</span></a> : <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#1c93e43e07fbeaeb6a625cb6614beb5d"><span class="id" title="notation">-&gt;</span></a> <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#T"><span class="id" title="variable">T</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#1c93e43e07fbeaeb6a625cb6614beb5d"><span class="id" title="notation">-&gt;</span></a> <span class="id" title="keyword">Prop</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<a name="equiv_rel_is_equiv"><span class="id" title="projection">equiv_rel_is_equiv</span></a> : <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Classes.RelationClasses.html#Equivalence"><span class="id" title="class">Equivalence</span></a> <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#equiv_rel"><span class="id" title="method">equiv_rel</span></a><br/>
+&nbsp;&nbsp;}.<br/>
+<span class="id" title="var">Arguments</span> <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#equiv_rel"><span class="id" title="method">equiv_rel</span></a> <span class="id" title="var">_</span> {<span class="id" title="var">_</span>} <span class="id" title="var">_</span> <span class="id" title="var">_</span>.<br/>
+<span class="id" title="var">Existing</span> <span class="id" title="keyword">Instance</span> <span class="id" title="var">equiv_rel_is_equiv</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Notation</span> <a name="e22720067ce4b5aec30cfdee50a33c6b"><span class="id" title="notation">&quot;</span></a>a ≡{ T } b" := (@<a class="idref" href="SyntheticComputability.Shared.equiv_on.html#equiv_rel"><span class="id" title="method">equiv_rel</span></a> <span class="id" title="var">T</span> <span class="id" title="var">_</span> <span class="id" title="var">a</span> <span class="id" title="var">b</span>) (<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 70).<br/>
+
+<br/>
+<span class="id" title="keyword">Instance</span> <a name="ext_equiv"><span class="id" title="instance">ext_equiv</span></a> {<span class="id" title="var">A</span> <span class="id" title="var">B</span>} `{<a class="idref" href="SyntheticComputability.Shared.equiv_on.html#equiv_on"><span class="id" title="class">equiv_on</span></a> <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#B"><span class="id" title="variable">B</span></a>} : <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#equiv_on"><span class="id" title="class">equiv_on</span></a> (<a class="idref" href="SyntheticComputability.Shared.equiv_on.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#1c93e43e07fbeaeb6a625cb6614beb5d"><span class="id" title="notation">-&gt;</span></a> <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#B"><span class="id" title="variable">B</span></a>).<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">exists</span> (<span class="id" title="keyword">fun</span> (<span class="id" title="var">f1</span> : <span class="id" title="var">A</span> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#1c93e43e07fbeaeb6a625cb6614beb5d"><span class="id" title="notation">-&gt;</span></a> <span class="id" title="var">B</span>) (<span class="id" title="var">f2</span> : <span class="id" title="var">A</span> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#1c93e43e07fbeaeb6a625cb6614beb5d"><span class="id" title="notation">-&gt;</span></a> <span class="id" title="var">B</span>) =&gt; <span class="id" title="keyword">forall</span> <span class="id" title="var">x</span>, <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#f1"><span class="id" title="variable">f1</span></a> <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#x"><span class="id" title="variable">x</span></a> <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#e22720067ce4b5aec30cfdee50a33c6b"><span class="id" title="notation">≡{</span></a><span class="id" title="var">B</span><a class="idref" href="SyntheticComputability.Shared.equiv_on.html#e22720067ce4b5aec30cfdee50a33c6b"><span class="id" title="notation">}</span></a> <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#f2"><span class="id" title="variable">f2</span></a> <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#x"><span class="id" title="variable">x</span></a>).<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">split</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">move</span> =&gt; ? ?. <span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">move</span> =&gt; <span class="id" title="var">x</span> <span class="id" title="var">y</span> ? <span class="id" title="var">z</span>. <span class="id" title="var">now</span> <span class="id" title="tactic">symmetry</span>.<br/>
+&nbsp;&nbsp;- <span class="id" title="tactic">move</span> =&gt; <span class="id" title="var">x</span> <span class="id" title="var">y</span> <span class="id" title="var">z</span> ? ? <span class="id" title="var">a</span>. <span class="id" title="var">now</span> <span class="id" title="tactic">transitivity</span> (<span class="id" title="var">y</span> <span class="id" title="var">a</span>).<br/>
+<span class="id" title="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Instance</span> <a name="nat_equiv"><span class="id" title="instance">nat_equiv</span></a> : <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#equiv_on"><span class="id" title="class">equiv_on</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Datatypes.html#nat"><span class="id" title="inductive">nat</span></a> := {| <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#Build_equiv_on"><span class="id" title="constructor">equiv_rel</span></a> <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#Build_equiv_on"><span class="id" title="constructor">:=</span></a> <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#Build_equiv_on"><span class="id" title="constructor">eq</span></a> |}.<br/>
+<span class="id" title="keyword">Instance</span> <a name="bool_equiv"><span class="id" title="instance">bool_equiv</span></a> : <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#equiv_on"><span class="id" title="class">equiv_on</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a> := {| <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#Build_equiv_on"><span class="id" title="constructor">equiv_rel</span></a> <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#Build_equiv_on"><span class="id" title="constructor">:=</span></a> <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#Build_equiv_on"><span class="id" title="constructor">eq</span></a> |}.<br/>
+<span class="id" title="keyword">Instance</span> <a name="Prop_equiv"><span class="id" title="instance">Prop_equiv</span></a> : <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#equiv_on"><span class="id" title="class">equiv_on</span></a> <span class="id" title="keyword">Prop</span> := {| <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#Build_equiv_on"><span class="id" title="constructor">equiv_rel</span></a> <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#Build_equiv_on"><span class="id" title="constructor">:=</span></a> <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#Build_equiv_on"><span class="id" title="constructor">iff</span></a> |}.<br/>
+
+<br/>
+<span class="id" title="keyword">Definition</span> <a name="surjection_wrt"><span class="id" title="definition">surjection_wrt</span></a> {<span class="id" title="var">A</span>} {<span class="id" title="var">B</span>} (<span class="id" title="var">e</span> : <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#equiv_on"><span class="id" title="class">equiv_on</span></a> <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#B"><span class="id" title="variable">B</span></a>) (<span class="id" title="var">f</span> : <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#A"><span class="id" title="variable">A</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#1c93e43e07fbeaeb6a625cb6614beb5d"><span class="id" title="notation">-&gt;</span></a> <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#B"><span class="id" title="variable">B</span></a>) :=<br/>
+&nbsp;&nbsp;<span class="id" title="keyword">forall</span> <span class="id" title="var">b</span>, <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">exists</span></a> <span class="id" title="var">a</span><a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#a883bdd010993579f99d60b3775bcf54"><span class="id" title="notation">,</span></a> <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#f"><span class="id" title="variable">f</span></a> <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#a"><span class="id" title="variable">a</span></a> <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#e22720067ce4b5aec30cfdee50a33c6b"><span class="id" title="notation">≡{</span></a><a class="idref" href="SyntheticComputability.Shared.equiv_on.html#B"><span class="id" title="variable">B</span></a><a class="idref" href="SyntheticComputability.Shared.equiv_on.html#e22720067ce4b5aec30cfdee50a33c6b"><span class="id" title="notation">}</span></a> <a class="idref" href="SyntheticComputability.Shared.equiv_on.html#b"><span class="id" title="variable">b</span></a>.<br/>
+</div>
+</div>
+<div id="footer">
+  Generated by <a href="http://coq.inria.fr/">coqdoc</a> and improved with <a href="https://github.com/tebbi/coqdocjs">CoqdocJS</a>
+</div>
+</div>
+</body>
+
+</html>

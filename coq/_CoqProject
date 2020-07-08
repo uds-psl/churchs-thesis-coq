@@ -1,0 +1,28 @@
+-R . SyntheticComputability
+
+COQDOCFLAGS = "--charset utf-8 -s --parse-comments --with-header ./website/resources/header.html --with-footer ./website/resources/footer.html --index indexpage"
+
+Shared/Dec.v
+Shared/FilterFacts.v
+Shared/ListAutomation.v
+
+Shared/equiv_on.v
+Shared/embed_nat.v
+Shared/prelim.v
+Shared/partial.v
+
+Synthetic/Definitions.v
+Synthetic/DecidabilityFacts.v
+Synthetic/SemiDecidabilityFacts.v
+Synthetic/EnumerabilityFacts.v
+Synthetic/ListEnumerabilityFacts.v
+Synthetic/MoreEnumerabilityFacts.v
+Synthetic/reductions.v
+Synthetic/ReducibilityTransport.v
+Synthetic/Infinite.v
+
+Axioms/axioms.v
+Axioms/halting.v
+Axioms/principles.v
+Axioms/kleenetree.v
+Axioms/baire_cantor.v

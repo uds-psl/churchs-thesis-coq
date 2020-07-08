@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="coqdoc.css" rel="stylesheet" type="text/css" />
+<link href="coqdocjs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="config.js"></script>
+<script type="text/javascript" src="coqdocjs.js"></script>
+</head>
+
+<body onload="document.getElementById('content').focus()">
+  <div id="header">
+    <span class="left">
+      <span class="modulename"> <script> document.write(document.title) </script> </span>
+    </span>
+
+    <span class="button" id="toggle-proofs"></span>
+
+    <span class="right">
+      <a href="../">Project Page</a>
+      <a href="./indexpage.html"> Index </a>
+      <a href="./toc.html"> Table of Contents </a>
+    </span>
+</div>
+    <div id="content" tabindex="-1" onblur="document.getElementById('content').focus()">
+    <div id="main">
+<div class="code">
+<span class="id" title="keyword">Require</span> <span class="id" title="keyword">Import</span> <a class="idref" href="SyntheticComputability.Synthetic.DecidabilityFacts.html#"><span class="id" title="library">DecidabilityFacts</span></a> <a class="idref" href="SyntheticComputability.Synthetic.SemiDecidabilityFacts.html#"><span class="id" title="library">SemiDecidabilityFacts</span></a> <a class="idref" href="SyntheticComputability.Synthetic.EnumerabilityFacts.html#"><span class="id" title="library">EnumerabilityFacts</span></a> <a class="idref" href="SyntheticComputability.Synthetic.ListEnumerabilityFacts.html#"><span class="id" title="library">ListEnumerabilityFacts</span></a> <a class="idref" href="SyntheticComputability.Synthetic.reductions.html#"><span class="id" title="library">reductions</span></a>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="semidecidable_red"><span class="id" title="lemma">semidecidable_red</span></a> <span class="id" title="var">X</span> <span class="id" title="var">Y</span> (<span class="id" title="var">p</span> : <a class="idref" href="SyntheticComputability.Synthetic.ReducibilityTransport.html#X"><span class="id" title="variable">X</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#1c93e43e07fbeaeb6a625cb6614beb5d"><span class="id" title="notation">-&gt;</span></a> <span class="id" title="keyword">Prop</span>) (<span class="id" title="var">q</span> : <a class="idref" href="SyntheticComputability.Synthetic.ReducibilityTransport.html#Y"><span class="id" title="variable">Y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#1c93e43e07fbeaeb6a625cb6614beb5d"><span class="id" title="notation">-&gt;</span></a> <span class="id" title="keyword">Prop</span>) :<br/>
+&nbsp;&nbsp;<a class="idref" href="SyntheticComputability.Synthetic.ReducibilityTransport.html#p"><span class="id" title="variable">p</span></a> <a class="idref" href="SyntheticComputability.Synthetic.reductions.html#ad26cd51092db112e3b7c58ee3ad93c1"><span class="id" title="notation">⪯ₘ</span></a> <a class="idref" href="SyntheticComputability.Synthetic.ReducibilityTransport.html#q"><span class="id" title="variable">q</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#1c93e43e07fbeaeb6a625cb6614beb5d"><span class="id" title="notation">-&gt;</span></a> <a class="idref" href="SyntheticComputability.Synthetic.Definitions.html#semi_decidable"><span class="id" title="definition">semi_decidable</span></a> <a class="idref" href="SyntheticComputability.Synthetic.ReducibilityTransport.html#q"><span class="id" title="variable">q</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#1c93e43e07fbeaeb6a625cb6614beb5d"><span class="id" title="notation">-&gt;</span></a> <a class="idref" href="SyntheticComputability.Synthetic.Definitions.html#semi_decidable"><span class="id" title="definition">semi_decidable</span></a> <a class="idref" href="SyntheticComputability.Synthetic.ReducibilityTransport.html#p"><span class="id" title="variable">p</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span> [<span class="id" title="var">f</span> <span class="id" title="var">Hf</span>] [<span class="id" title="var">g</span> <span class="id" title="var">Hg</span>].<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">exists</span> (<span class="id" title="keyword">fun</span> <span class="id" title="var">x</span> <span class="id" title="var">n</span> =&gt; <span class="id" title="var">g</span> (<span class="id" title="var">f</span> <a class="idref" href="SyntheticComputability.Synthetic.ReducibilityTransport.html#x"><span class="id" title="variable">x</span></a>) <a class="idref" href="SyntheticComputability.Synthetic.ReducibilityTransport.html#n"><span class="id" title="variable">n</span></a>). <span class="id" title="tactic">firstorder</span>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" title="keyword">Lemma</span> <a name="enumerable_red"><span class="id" title="lemma">enumerable_red</span></a> <span class="id" title="var">X</span> <span class="id" title="var">Y</span> (<span class="id" title="var">p</span> : <a class="idref" href="SyntheticComputability.Synthetic.ReducibilityTransport.html#X"><span class="id" title="variable">X</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#1c93e43e07fbeaeb6a625cb6614beb5d"><span class="id" title="notation">-&gt;</span></a> <span class="id" title="keyword">Prop</span>) (<span class="id" title="var">q</span> : <a class="idref" href="SyntheticComputability.Synthetic.ReducibilityTransport.html#Y"><span class="id" title="variable">Y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#1c93e43e07fbeaeb6a625cb6614beb5d"><span class="id" title="notation">-&gt;</span></a> <span class="id" title="keyword">Prop</span>) :<br/>
+&nbsp;&nbsp;<a class="idref" href="SyntheticComputability.Synthetic.ReducibilityTransport.html#p"><span class="id" title="variable">p</span></a> <a class="idref" href="SyntheticComputability.Synthetic.reductions.html#ad26cd51092db112e3b7c58ee3ad93c1"><span class="id" title="notation">⪯ₘ</span></a> <a class="idref" href="SyntheticComputability.Synthetic.ReducibilityTransport.html#q"><span class="id" title="variable">q</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#1c93e43e07fbeaeb6a625cb6614beb5d"><span class="id" title="notation">-&gt;</span></a> <a class="idref" href="SyntheticComputability.Synthetic.EnumerabilityFacts.html#enumerable__T"><span class="id" title="definition">enumerable__T</span></a> <a class="idref" href="SyntheticComputability.Synthetic.ReducibilityTransport.html#X"><span class="id" title="variable">X</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#1c93e43e07fbeaeb6a625cb6614beb5d"><span class="id" title="notation">-&gt;</span></a> <a class="idref" href="SyntheticComputability.Synthetic.DecidabilityFacts.html#discrete"><span class="id" title="definition">discrete</span></a> <a class="idref" href="SyntheticComputability.Synthetic.ReducibilityTransport.html#Y"><span class="id" title="variable">Y</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#1c93e43e07fbeaeb6a625cb6614beb5d"><span class="id" title="notation">-&gt;</span></a> <a class="idref" href="SyntheticComputability.Synthetic.Definitions.html#enumerable"><span class="id" title="definition">enumerable</span></a> <a class="idref" href="SyntheticComputability.Synthetic.ReducibilityTransport.html#q"><span class="id" title="variable">q</span></a> <a class="idref" href="http://coq.inria.fr/distrib/V8.11.0/stdlib//Coq.Init.Logic.html#1c93e43e07fbeaeb6a625cb6614beb5d"><span class="id" title="notation">-&gt;</span></a> <a class="idref" href="SyntheticComputability.Synthetic.Definitions.html#enumerable"><span class="id" title="definition">enumerable</span></a> <a class="idref" href="SyntheticComputability.Synthetic.ReducibilityTransport.html#p"><span class="id" title="variable">p</span></a>.<br/>
+<span class="id" title="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">eapply</span> <a class="idref" href="SyntheticComputability.Synthetic.EnumerabilityFacts.html#semi_decidable_enumerable"><span class="id" title="lemma">semi_decidable_enumerable</span></a>; <span class="id" title="tactic">eauto</span> <span class="id" title="keyword">using</span> <a class="idref" href="SyntheticComputability.Synthetic.ReducibilityTransport.html#semidecidable_red"><span class="id" title="lemma">semidecidable_red</span></a>, <a class="idref" href="SyntheticComputability.Synthetic.EnumerabilityFacts.html#enumerable_semi_decidable"><span class="id" title="lemma">enumerable_semi_decidable</span></a>.<br/>
+<span class="id" title="keyword">Qed</span>.<br/>
+</div>
+</div>
+<div id="footer">
+  Generated by <a href="http://coq.inria.fr/">coqdoc</a> and improved with <a href="https://github.com/tebbi/coqdocjs">CoqdocJS</a>
+</div>
+</div>
+</body>
+
+</html>
