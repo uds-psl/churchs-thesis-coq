@@ -4,7 +4,7 @@ Require Import ssreflect.
 Require Import Definitions DecidabilityFacts EnumerabilityFacts.
 Require Export prelim.
 
-(** * Reducibility *)
+(** ** Many-one reducibility *)
 
 Definition reduces_m {X Y} (f : X -> Y) (P : X -> Prop) (Q : Y -> Prop) :=
   forall x, P x <-> Q (f x).
@@ -12,29 +12,6 @@ Definition red_m {X Y} (P : X -> Prop) (Q : Y -> Prop) :=
   exists f : X -> Y, reduces_m f P Q.
 Notation "P ⪯ₘ Q" := (red_m P Q) (at level 50).
 Notation "p ≡ₘ q" := (p ⪯ₘ q /\ q ⪯ₘ p) (at level 50).
-
-Definition reduces_o {X Y} (f : X -> Y) (P : X -> Prop) (Q : Y -> Prop) :=
-  Inj (=) (=) f /\ reduces_m f P Q. 
-Definition red_o {X} {Y} (P : X -> Prop) (Q : Y -> Prop) :=
-  exists f : X -> Y, reduces_o f P Q.
-Notation "P ⪯₁ Q" := (red_o P Q) (at level 50).
-Notation "p ≡₁ q" := (p ⪯₁ q /\ q ⪯₁ p) (at level 50).
-
-Definition reduces_tt {X} {Y} (f : X -> list Y * (list bool -> bool)) (P : X -> Prop) (Q : Y -> Prop) :=
-    forall x, forall L, Forall2 reflects L (map Q (fst (f x))) -> reflects (snd (f x) L) (P x).
-Definition red_tt {X} {Y} (P : X -> Prop) (Q : Y -> Prop) :=
-  exists (f : X -> list Y * (list bool -> bool)),
-    reduces_tt f P Q.
-Notation "P ⪯ₜₜ Q" := (red_tt P Q) (at level 50).
-
-Definition reduces_tTuring {X} {Y} (f : (Y -> bool) -> (X -> bool)) (P : X -> Prop) (Q : Y -> Prop) :=
-  forall d, decider d Q -> decider (f d) P.
-Definition red_tTuring {X} {Y} (P : X -> Prop) (Q : Y -> Prop) :=
-  exists f : (Y -> bool) -> (X -> bool),
-    reduces_tTuring f P Q.
-Notation "P ⪯ₜᴛ Q" := (red_tTuring P Q) (at level 50).
-
-(** ** Many-one reducibility *)
 
 Instance red_m_reflexive {X} : Reflexive (@red_m X X).
 Proof.

@@ -6,8 +6,7 @@ Require Import Lia.
 
 Set Implicit Arguments.
 Unset Strict Implicit.
-
-(** ** Definition of infinite and generating types *)
+(* ** Definition of infinite and generating types *)
 
 Definition generating X p :=
   forall (A : list X), exists x, ~ In x A /\ p x.
@@ -25,7 +24,7 @@ Section Inf.
   Hypothesis Hf' : forall x, p x <-> exists n, f' n = Some x.
   Hypothesis HX : eq_dec X.
     
-  (** ** Infinite data types are generating *)
+  (* ** Infinite data types are generating *)
 
   Section Gen.
 
@@ -92,7 +91,7 @@ Section Inf.
 
   End Gen.
 
-  (** ** Generating data types are infinite *)
+  (* ** Generating data types are infinite *)
 
   Hypothesis Hg : generating p.
 
@@ -217,7 +216,7 @@ Section Inf.
     destruct gen as (? & ? & ? & ?); eassumption.
   Qed.
 
-  (** ** Generating data types are in bijection to nat *)
+  (* ** Generating data types are in bijection to nat *)
 
   Lemma lt_acc n :
     Acc lt n.
