@@ -35,7 +35,7 @@ Section WO.
     - intros H. apply IH. constructor. intros _. exact H.
   Defined.
    
-  Theorem wo :
+  Theorem mu_nat :
     (exists n, f n = true) -> { n | least (fun n => f n = true) 0 n }.
   Proof.
     intros H. apply (G_sig 0).
@@ -46,25 +46,14 @@ Section WO.
 
 End WO.
 
-Definition mu_nat (p : nat -> Prop) (d : forall x, dec (p x)) (H : exists x, p x) : ∑ x, least p 0 x.
+Definition mu_nat_dec (p : nat -> Prop) (d : forall x, dec (p x)) (H : exists x, p x) : ∑ x, least p 0 x.
 Proof.
-  destruct (wo (fun n => if d n then true else false)) as (n & H1 & H2 & H3).
+  destruct (mu_nat (fun n => if d n then true else false)) as (n & H1 & H2 & H3).
   - destruct H as [n Hn]. exists n. destruct (d n); eauto.
   - exists n. repeat split.
     + lia.
     + destruct (d n); cbn in *; congruence.
     + intros. eapply H3. lia. destruct (d i); cbn in *; congruence.
-Qed.
-
-Lemma AC_dec_least (p : nat -> Prop) : (forall n, {p n} + {~ p n}) -> (exists n, p n) -> ∑ n, least p 0 n.
-Proof.
-  intros d H.
-  assert (exists n, (fun n => if! d n is left _ then true else false) n = true) as [n (H1 & H2 & H3)] % wo.
-  { destruct H as [n Hn]. exists n. destruct (d n); firstorder. }
-  exists n; repeat split; eauto.
-  - now destruct (d n); inv H2.
-  - intros. eapply H3. lia.
-    destruct (d i); firstorder.
 Qed.
 
 (** * Church's thesis in type theory *)
@@ -241,7 +230,7 @@ Proof.
       destruct (PeanoNat.Nat.eqb_spec x x').
       all:congruence.
     + now eapply undef_hasvalue in H3.
-  - intros [n (_ & [y H] & Hleast)] % AC_dec_least.
+  - intros [n (_ & [y H] & Hleast)] % mu_nat_dec.
     + exists y.
       rewrite bind_hasvalue.
       exists n. rewrite mu_hasvalue H.
@@ -255,7 +244,9 @@ Proof.
       * reflexivity.
     + intros n.
       destruct (g n) as [ [x' ] | ]; try firstorder congruence.
-      destruct (nat_eq_dec x x'); subst; eauto; firstorder congruence.
+      destruct (nat_eq_dec x x'); subst; eauto.
+      * left. exists n0. congruence.
+      * firstorder congruence.
 Qed.
 
 Lemma EPF_to_CT `{partiality} :

@@ -16,7 +16,6 @@ Proof.
   clear R Hf. intros Htot.
   unshelve eexists.
   - intros x. specialize (Htot x). eapply mu_nat in Htot as [m Hm]. exact m.
-    intros. apply bool_eq_dec.
   - intros x. cbn. now destruct mu_nat as (p & H1 & H2 & H3).
 Qed.
 

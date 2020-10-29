@@ -787,7 +787,7 @@ Proof.
       intros n.
       destruct (inf_τ n) as (u & Hu1 & Hu2).
       pose proof (wf_τ (extend u)).
-      eapply mu_nat in H as (k & H1 & H2 & H3). 
+      eapply mu_nat_dec in H as (k & H1 & H2 & H3). 
       -- exists (map (extend u) (seq 0 k)). split.
          ++ rewrite map_length seq_length.
             destruct (le_lt_dec n k); eauto.
