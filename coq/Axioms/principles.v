@@ -24,21 +24,21 @@ Lemma semi_decidable_AC X :
   forall R : X -> nat -> Prop, semi_decidable (curry R) -> (forall x, exists n, R x n) -> exists f, forall x, R x (f x).
 Proof.
   intros R [f Hf]. red in Hf. intros Htot.
-  destruct (decidable_AC _ (fun x p => let (n,m) := unembed p in f (x,n) m = true)) as [g Hg].
+  destruct (decidable_AC _ (fun x => fun! ⟨n,m⟩ => (f (x,n) m = true))) as [g Hg].
   - eapply decidable_iff. econstructor.
     intros [x p]. cbn. destruct (unembed p). eapply bool_eq_dec.
   - intros x.
     specialize (Htot x) as [m Hm].
     eapply (Hf (_,_)) in Hm as [n Hn].
     exists ⟨ m, n ⟩. now rewrite embedP.
-  - exists (fun x => let (n,m) := unembed (g x) in n).
+  - exists (fun x => (fun! ⟨n, m⟩ => n) (g x)). 
     intros x. specialize (Hg x).
     destruct (unembed (g x)) as (n, m).
     eapply (Hf (_,_)). eauto.
 Qed.
 
-Lemma option_case {X} (o : option X) :
-  { x | o = Some x} + {o = None}.
+Lemma inspect_opt {X} (o : option X) :
+  {x | o = Some x} + {o = None}.
 Proof.
   destruct o; eauto.
 Qed.
@@ -54,9 +54,14 @@ Proof.
   } clear Htot'.
   eapply decidable_AC in Htot as [g Hg].
   unshelve eexists.
-  - intros x. specialize (Hg x). destruct (f (g x)) as [ (x', y) | ]. exact y. destruct Hg.
-  - intros x. exists (g x). cbn.  generalize (Hg x); intros H.
-    destruct (f (g x)) as [(x',y)|]. congruence. tauto.
+  - refine (fun x => match inspect_opt (f (g x)) with
+                  | inleft (exist _ (x', y) _) => y
+                  | inright E => _
+                  end).
+    specialize (Hg x). rewrite E in Hg. destruct Hg.
+  - intros x. exists (g x). cbn. generalize (Hg x); intros H.
+    destruct (inspect_opt (f (g x))) as [[(x',y) E']| E'];
+    rewrite? E' in *. congruence. exfalso. now rewrite E' in H.
   - eapply decidable_iff. econstructor. intros []. cbn.
     destruct (f n) as [ [] | ]; eauto.
 Qed.
@@ -65,7 +70,8 @@ Qed.
 
 Definition Fext := forall X Y (f g : X -> Y), (forall x, f x = g x) -> f = g.
 Definition Pext := forall P Q : Prop, P <-> Q -> P = Q.
-Definition PI := forall P : Prop, forall x1 x2 : P, x1 = x2.
+Definition hProp (P : Prop) := forall x1 x2 : P, x1 = x2.
+Definition PI := forall P : Prop, hProp P.
 
 Lemma Pext_to_PI :
   Pext -> PI.
@@ -75,10 +81,35 @@ Proof.
   now destruct x1, x2.
 Qed.
 
+Lemma hProp_disj P Q :
+  hProp P -> hProp Q -> ~ (P /\ Q) -> hProp (P \/ Q).
+Proof.
+  unfold hProp.
+  intros hP hQ H [H1 | H1] [H2 | H2]; f_equal; firstorder.
+Qed.
+
+Lemma Fext_hProp_neg P :
+  Fext -> hProp (~ P).
+Proof.
+  firstorder.
+Qed.
+
+Lemma Fext_hProp_disj P :
+  Fext -> hProp P -> hProp (P \/ ~ P).
+Proof.
+  intros. now eapply hProp_disj; [ | eapply Fext_hProp_neg | ].
+Qed.
+
+Lemma Fext_hProp_wdisj P :
+  Fext -> hProp (~ P \/ ~~ P).
+Proof.
+  intros. now eapply Fext_hProp_disj; [ | eapply Fext_hProp_neg].
+Qed.
+
 Section CT_wrong.
 
   Variable model : model_of_computation.
-  
+
   Definition CT_Sigma := forall f : nat -> nat, {n : nat | computes n f }.
 
   Lemma CT_Sigma_wrong : CT_Sigma -> Fext -> False.
@@ -541,6 +572,34 @@ Proof.
   - exists (fun _ => f). now intros x.
   - exists (fun _ _ => false). firstorder.
   - destruct (decider_decide Hd tt); tauto.
+Qed.
+
+Lemma semi_decidable_ext {X} (p q : X -> Prop) :
+  p ≡{X -> Prop} q -> semi_decidable p -> semi_decidable q.
+Proof.
+  intros H [f Hf]. exists f. intros x. cbv -[iff] in H.
+  rewrite <- H. eapply Hf.
+Qed.
+
+Lemma MP_iff_sdec_weak_total :
+  MP_semidecidable <-> (forall X (R : X -> bool -> Prop), semi_decidable (curry R) -> forall x, ~~ (exists b, R x b) -> exists b, R x b).
+Proof.
+  split.
+  - intros H X R [f Hf] x Hx.
+    eapply H with (x := x).
+    eapply semi_decidable_ext.
+    2: eapply (@semi_decidable_or _ (fun x => R x true) (fun x => R x false)).
+    + clear. intros x. split. firstorder. intros [[] ?]; firstorder.
+    + exists (fun x n => f (x, true) n). intros x0. red in Hf.
+      now rewrite (Hf (x0, true)). 
+    + exists (fun x n => f (x, false) n). intros x0. red in Hf.
+      now rewrite (Hf (x0, false)).
+    + eassumption.
+  - intros H X p [f Hf] x Hx.
+    edestruct (H X (fun x b => p x)).
+    + exists (fun '(x, b) n => f x n). intros (?, b). cbn. eapply Hf.
+    + intros Hp. eapply Hx. intros Hpx. eapply Hp. exists true. eassumption.
+    + eassumption.
 Qed.
 
 Lemma MP_cosdec_to_sdec :
