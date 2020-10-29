@@ -146,17 +146,6 @@ Qed.
 Definition co_semi_decidable {X} (p : X -> Prop) : Prop :=
   exists f : X -> nat -> bool, forall x : X, p x <-> (forall n : nat, f x n = false).
 
-(* Lemma co_semi_decidable_or {X} {p q : X -> Prop} : *)
-(*   co_semi_decidable p -> co_semi_decidable q -> co_semi_decidable (fun x => p x \/ q x). *)
-(* Proof. *)
-(*   intros [f Hf] [g Hg]. *)
-(*   exists (fun x n => andb (f x n) (g x n)). *)
-(*   intros x. *)
-(*   rewrite Hf, Hg. *)
-(*   setoid_rewrite Bool.orb_true_iff. *)
-(*   clear. firstorder. *)
-(* Qed. *)
-
 Lemma co_semi_decidable_and {X} {p q : X -> Prop} :
   co_semi_decidable p -> co_semi_decidable q -> co_semi_decidable (fun x => p x /\ q x).
 Proof.
@@ -165,4 +154,21 @@ Proof.
   intros x. rewrite Hf, Hg.
   setoid_rewrite Bool.orb_false_iff.
   clear. firstorder.
+Qed.
+
+Lemma forall_neg_exists_iff (f : nat -> bool) :
+  (forall n, f n = false) <-> ~ exists n, f n = true.
+Proof.
+  split.
+  - intros H [n Hn]. rewrite H in Hn. congruence.
+  - intros H n. destruct (f n) eqn:E; try reflexivity.
+    destruct H. eauto.
+Qed.
+
+Lemma co_semi_decidable_stable :
+  forall X (p : X -> Prop), co_semi_decidable p -> stable p.
+Proof.
+  intros X p [f Hf] x Hx.
+  eapply Hf. eapply forall_neg_exists_iff. rewrite Hf, forall_neg_exists_iff in Hx. 
+  tauto.
 Qed.
