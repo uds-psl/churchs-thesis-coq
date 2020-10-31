@@ -526,6 +526,11 @@ Proof.
     + left. eapply MP. now rewrite <- forall_neg_exists_iff.
 Qed.
 
+Corollary LPO_to_MP : LPO -> MP.
+Proof.
+  intros. now eapply LPO_MP_WLPO_iff.
+Qed.
+
 Lemma MP_IP_LPO : IP -> MP -> LPO.
 Proof.
   intros IP MP f.
